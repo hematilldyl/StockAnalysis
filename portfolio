@@ -15,7 +15,6 @@ from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense, LSTM, Activation
 
-#TODO: Building and debugging the LSTM
 
 '''take mean return and stdev as percentages
 the initial investment, the yearly contributions
@@ -106,8 +105,8 @@ def split_data(data):
 
 #MinMaxScaler from -1,1
 def scale_data(data,unscale):
+    scaler = MinMaxScaler(feature_range=(0,1))
     if ~unscale:
-        scaler = MinMaxScaler(feature_range=(0,1))
         scaler=scaler.fit(data)
         data = scaler.transform(data)
         return data
@@ -119,21 +118,23 @@ def scale_data(data,unscale):
 def differencing(data):
     differenced = []
     for i in range(1,len(data)):
-        differenced.append(np.log(data.iloc[i])-np.log(data.iloc[i-1]))
+        #differenced.append(np.log(data.iloc[i])-np.log(data.iloc[i-1]))
+        differenced.append((data.iloc[i])-(data.iloc[i-1]))
     return differenced
 
 #reverse the log differencing
 def idifferencing(data,differenced_data):
-    undifferenced = [data.iloc[0,:]]
-    for i in range(1,len(data)):
-        undifferenced.append(np.exp(differenced_data[i])+data.iloc[i-1,:])
+    undifferenced = [data[0]]
+    for i in range(1,len(data)-1):
+        #undifferenced.append(np.exp(differenced_data[i])+data[i-1])
+        undifferenced.append((differenced_data[i])+data[i-1])
     return undifferenced
 
 def build_model(train_X):
     model = Sequential()
-    model.add(LSTM(50,input_shape=(train_X.shape[1],train_X.shape[2]),return_sequences=True))
-    model.add(LSTM(150,return_sequences=True))
-    model.add(LSTM(100))
+    model.add(LSTM(50,input_shape=(train_X.shape[1],train_X.shape[2]),return_sequences=True,recurrent_dropout=0.4))
+    model.add(LSTM(100,return_sequences=True,recurrent_dropout=0.4))
+    model.add(LSTM(10,recurrent_dropout=0.4))
     model.add(Dense(1))
     #,activation='linear'
     model.compile(optimizer='adam',loss='mae')
@@ -142,37 +143,53 @@ def build_model(train_X):
 #1 week forecast on stock with LSTM       
 def stock_pred_LSTM():
    df=get_data('googl')
-
+   historic=(df['Open'].copy()).values
+   '''
    for i in range(0,5):
        df.iloc[1:,i]=differencing(df.iloc[:,i])
        df.iloc[0,i]=0
-
+'''
    data=scale_data(df,False)
    data=series_to_supervised(df,1,1)
    data.drop(data.columns[[6,7,8,9]],axis=1,inplace=True)
    train_X,train_y,test_X,test_y,train_length=split_data(data)
    model=build_model(train_X)
    history = model.fit(train_X,train_y,batch_size=32,epochs=5,validation_data=(test_X,test_y),verbose=2)
-   plt.plot(history.history['loss'],label='train')
+   '''plt.plot(history.history['loss'],label='train')
    plt.plot(history.history['val_loss'],label='test')
    plt.legend()
-   plt.show()
+   plt.show()'''
   
    estimator = model.predict(test_X)
-   test_X = test_X.reshape(test_X.shape[0],test_X.shape[2])
-   iestimator = np.concatenate((estimator,test_X[:,1:]),axis=1)
-   iestimator= scale_data(iestimator,True)
-   print(iestimator)
-   historic=df['Open']
-   historic=historic.iloc[-train_length]
-   iestimator=idifferencing(historic,iestimator)
-   iestimator = iestimator[:,0]
+   
+   historic=historic[train_length:]
+   
+   
+   #unscale
+   iestimator= scale_data(estimator,True)
+   #iestimator=idifferencing(historic,iestimator)
+   #iestimator=pd.Series(iestimator)
+   
    test_y=test_y.reshape((len(test_y),1))
+   test_y=scale_data(test_y,True)
+   #test_y=idifferencing(historic,test_y)
+   #test_y=pd.Series(test_y)
+   
+
+   iestimator=iestimator.reshape((len(iestimator),1))
+
+   print(test_y.shape)
+   plt.plot(iestimator,color="blue",label="Predicted")
+   plt.plot(test_y,color="red",label="Actual")
+   plt.legend()
+   plt.show()
+   '''
+   iestimator = iestimator[:,0]
    i_y=np.concatenate((test_y,test_X[:,1:]),axis=1)
    i_y=i_y[:,0]
    rmse=np.sqrt(mean_squared_error(iestimator,i_y))
    print('Test RMSE: %.3f' % rmse)
-
+   '''
    #predictions=idifferencing(recordOfTest,predictions)
    #plt.plot(ipredictions)
  
@@ -181,3 +198,5 @@ def stock_pred_LSTM():
 
    
 stock_pred_LSTM()  
+ 
+
