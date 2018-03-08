@@ -112,7 +112,7 @@ def monte_carlo_stockForecast(stock):
  '''A set of functions to do time-series analysis and modelling
  on a stock time series using an LSTM model'''
 	
-#frames data as supervised learning by Jason Brownlee
+#frames data as supervised learning 
 def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
 	n_vars = 1 if type(data) is list else data.shape[1]
 	df = pd.DataFrame(data)
