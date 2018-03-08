@@ -3,7 +3,6 @@ from matplotlib import style
 import matplotlib.pyplot as plt
 import pandas as pd
 import pandas_datareader.data as web
-from pandas.plotting import autocorrelation_plot
 from pandas import concat
 from scipy.stats import norm
 import datetime as dt
@@ -16,10 +15,12 @@ from keras.models import Sequential
 from keras.layers import Dense, LSTM, Activation
 
 
-'''take mean return and stdev as percentages
+
+style.use('ggplot')
+
+'''Take mean return and stdev as percentages
 the initial investment, the yearly contributions
 along with the timeline of interest'''
-style.use('ggplot')
 
 def monte_carlo_portfolio(mean,stdev,IV,yearly_contribution,time):
     historicROI=[]
@@ -65,9 +66,12 @@ def get_data(stock):
     df= web.DataReader(stock,'google',start,end)
     return df
 
+#take a stock name and product a few monte carlo forecasts
+#TP=YS*exp(r), drift + random to get random walk, ln(St/St-1)=alpha+Zsigma
 def monte_carlo_stockForecast(stock):
+    #get the data
     df=get_data(stock)
-    #TP=YS*exp(r), drift + random to get random walk, ln(St/St-1)=alpha+Zsigma
+    #format the data
     YS = df['Close'].values
     YS_forecast = df['Close'].values
     length = len(YS_forecast)
@@ -75,6 +79,7 @@ def monte_carlo_stockForecast(stock):
     df['Close Lag']=np.log(df['Close'].shift(1)/df['Close'])
     DR = df['Close Lag']
     
+    #calculate the statistics
     mean=np.mean(DR)
     variance=np.var(DR)
     stdev=np.std(DR)
@@ -84,9 +89,13 @@ def monte_carlo_stockForecast(stock):
     print(variance)
     print(stdev)
     print(drift)
+	
     col = ['g','m','r','b']
+
+    #plot 4 trials
     for j in range(0,4):
         for i in range(0,50):
+	    #calculate 50 days for forecast	
             rate = np.exp(drift+(stdev*norm.ppf(random.random())))
             index = len(YS_forecast)-1
             FS = [YS_forecast[index]*rate]
@@ -98,9 +107,11 @@ def monte_carlo_stockForecast(stock):
     plt.legend()
     plt.show()
     
-monte_carlo_stockForecast('googl')    
+#monte_carlo_stockForecast('googl')    
 
-    
+ '''A set of functions to do time-series analysis and modelling
+ on a stock time series using an LSTM model'''
+	
 #frames data as supervised learning by Jason Brownlee
 def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
 	n_vars = 1 if type(data) is list else data.shape[1]
@@ -155,13 +166,14 @@ def idifferencing(data,differenced_data):
         undifferenced.append((differenced_data[i])+data[i-1])
     return undifferenced
 
+#build the model with LSTM recurrent layer 50,100,10 units with dropout, one output (predictor) 5 features loaded, 1 time step
+#n number of samples
 def build_model(train_X):
     model = Sequential()
     model.add(LSTM(50,input_shape=(train_X.shape[1],train_X.shape[2]),return_sequences=True,dropout=0.4))
     model.add(LSTM(100,return_sequences=True,dropout=0.6))
     model.add(LSTM(10,dropout=0.4))
     model.add(Dense(1,activation='selu'))
-    #,activation='linear'
     model.compile(optimizer='adam',loss='mae')
     return model
 
@@ -203,15 +215,3 @@ def stock_fit_LSTM(stock):
    
 #stock_fit_LSTM()  
  
-
-
-
-
-
-'''
-df=get_data('tsla')
-hold=df['Open']
-hold2 = hold.diff()
-#autocorrelation_plot(hold2)
-plt.show()
-'''
