@@ -18,18 +18,45 @@ from keras.layers import Dense, LSTM, Activation
 
 style.use('ggplot')
 
-'''Take mean return and stdev as percentages
-the initial investment, the yearly contributions
-along with the timeline of interest'''
+'''
+Author: Dylan Hematillake
+Date: 03/01/2018
+
+Function: monte_carlo_portfolio
+
+Parameters: 
+	mean of returns as $/time unit
+	stdev of returns as $/time unit
+	IV (intial value/principal) as $
+	yearly_contributions (can be any time unit) $/time unit
+	time (whichever time unit) time unit
+Returns: 
+	Plot of portfolio performance in as an example and the total 
+	returns over the N trials of simulation
+Purpose:	
+	Take mean return and stdev as percentages
+	the initial investment, the yearly contributions
+	along with the timeline of interest to generate Monte Carlo
+	simulation of the portfolio as a whole. Works quite nicely for
+	index portfolios. Can take other timelines, monthly for example
+	only if the appropriate mean, stdev are used then
+	
+Imports and Libraries Used:
+	Pandas, Numpy, Matplotlib, Random, Scipy
+'''
 
 def monte_carlo_portfolio(mean,stdev,IV,yearly_contribution,time):
+    #records
     historicROI=[]
     Returns=[]
     Profit=[]
+    #run the simulation N times (set to 1000 here)
     for k in range(0,1000):
+	#temp records	
         ROI=[]
         Year=[]
-     
+	
+	#run through the timeline of interest in the time units of the mean and stdev 
         for i in range(0,time):
             Year.append(i+1)
             random_return = random.SystemRandom()
@@ -58,6 +85,31 @@ def monte_carlo_portfolio(mean,stdev,IV,yearly_contribution,time):
 
 #tangerine balanced growth fund    
 #monte_carlo(5.23,9.04,1000,1500,40) 
+
+
+'''
+Author: Dylan Hematillake
+Date: 03/3/2018
+
+Function: monte_carlo_stockForecast
+
+Parameters: 
+	stock: a string with the appropriate stock ticker
+	
+Returns: 
+	Plot of the stock for N number of simulations,
+	suggested no more than 5
+	
+Purpose:	
+	To perform Monte Carlo simulation on a desired stock
+	
+User Defined Dependencies:
+	get_data(). A repeatable function to get the stock
+	data using pandas web DataReader. 
+	
+Imports and Libraries Used:
+	Pandas, Numpy, Matplotlib, Datetime, Random, Scipy
+'''
 
 #fetch some stock data from google
 def get_data(stock):
@@ -109,8 +161,41 @@ def monte_carlo_stockForecast(stock):
     
 #monte_carlo_stockForecast('googl')    
 
- '''A set of functions to do time-series analysis and modelling
- on a stock time series using an LSTM model'''
+'''
+Author: Dylan Hematillake
+Date: 03/3/2018
+
+Function: stock_fit_LSTM
+
+Parameters: 
+	stock: a string with the appropriate stock ticker
+	
+Returns: 
+	Plot of the stock with a predicted model from a
+	4 layer LSTM with dropout 0.4, 0.6 and activation
+	selu built with build_model.
+	
+Purpose:	
+	To develop a behaviour model for the stock trend
+	using an LSTM.
+	
+User Defined Dependencies:
+	get_data(): A function to get the stock data using 
+	pandas web DataReader. Takes a stock string.
+	series_to_supervised(): A function to modfy the input data
+	to lag it in order to have proper supervised learning. Only
+	requires the input data.
+	split_data(): Splits the data into training and testing
+	sets. Input is the data.
+	differencing(): Take a time series and performs first order
+	log differencing to remove trends, seasonality and rolling variance
+	idifferencing(): Undoes differencing(), requires the original data and 
+	the differenced data
+	build_model(): Takes the training features and develops the LSTM.
+	
+Imports and Libraries Used:
+	Pandas, Matplotlib, Numpy, Keras
+ '''
 	
 #frames data as supervised learning 
 def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
@@ -170,8 +255,8 @@ def idifferencing(data,differenced_data):
 #n number of samples
 def build_model(train_X):
     model = Sequential()
-    model.add(LSTM(50,input_shape=(train_X.shape[1],train_X.shape[2]),return_sequences=True,dropout=0.4))
-    model.add(LSTM(100,return_sequences=True,dropout=0.6))
+    model.add(LSTM(100,input_shape=(train_X.shape[1],train_X.shape[2]),return_sequences=True,dropout=0.4))
+    model.add(LSTM(50,return_sequences=True,dropout=0.6))
     model.add(LSTM(10,dropout=0.4))
     model.add(Dense(1,activation='selu'))
     model.compile(optimizer='adam',loss='mae')
@@ -213,5 +298,3 @@ def stock_fit_LSTM(stock):
    plt.show()
 
    
-#stock_fit_LSTM()  
- 
