@@ -50,8 +50,8 @@ def monte_carlo_portfolio(mean,stdev,IV,yearly_contribution,time):
     historicROI=[]
     Returns=[]
     Profit=[]
-    #run the simulation N times (set to 1000 here)
-    for k in range(0,1000):
+    #run the simulation N times (set to 100 here)
+    for k in range(0,100):
 	#temp records	
         ROI=[]
         Year=[]
