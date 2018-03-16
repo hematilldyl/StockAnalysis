@@ -253,13 +253,14 @@ def idifferencing(data,differenced_data):
 
 #build the model with LSTM recurrent layer 50,100,10 units with dropout, one output (predictor) 5 features loaded, 1 time step
 #n number of samples
-def build_model(train_X):
+def build_model(train_X,layers,cells,dropo,activ='selu'):
     model = Sequential()
-    model.add(LSTM(100,input_shape=(train_X.shape[1],train_X.shape[2]),return_sequences=True,dropout=0.4))
-    model.add(LSTM(50,return_sequences=True,dropout=0.6))
-    model.add(LSTM(10,dropout=0.4))
-    model.add(Dense(1,activation='selu'))
+    for i in range(0,layers-1):
+	model.add(LSTM(cells[i],input_shape=(train_X.shape[1],train_X.shape[2]),return_sequences=True,dropout=dropo[i])
+    model.add(LSTM(cells[len(cells)],dropout=dropo[len(dropo)]
+    model.add(Dense(1,activation=activ))
     model.compile(optimizer='adam',loss='mae')
+   
     return model
 
 #LSTM Model on Stock      
@@ -274,7 +275,9 @@ def stock_fit_LSTM(stock):
    data=series_to_supervised(df,1,1)
    data.drop(data.columns[[6,7,8,9]],axis=1,inplace=True)
    train_X,train_y,test_X,test_y,train_length=split_data(data)
-   model=build_model(train_X)
+   cells=[100,50,10]
+   dropo=[0.4,0.6,0.4]
+   model=build_model(train_X,4,cells,dropo)
    history = model.fit(train_X,train_y,batch_size=64,epochs=2,validation_data=(test_X,test_y),verbose=2)
 
    estimator = model.predict(test_X)
