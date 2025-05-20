@@ -7,7 +7,7 @@ class RTLearner(object):
         self.leaf_size = leaf_size
   		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
     def author(self):  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-        return 'dhematillake3' # replace tb34 with your Georgia Tech username
+        return 'dh'
 
     def build_tree(self, data):
         #Sourced from lecture pseudocode
