@@ -13,10 +13,7 @@ def compute_portvals(
     commission=9.95,  		  	   		  	  			  		 			     			  	 
     impact=0.005,  		  	   		  	  			  		 			     			  	 
 ):  		  	   		  	  			  		 			     			  	 
-    """  		  	   		  	  			  		 			     			  	 
-    Computes the portfolio values.  		  	   		  	  			  		 			     			  	 
-  	Follows steps given by Prof. Tucker Balch.
-  		  	   		  	  			  		 			     			  	 
+    """  		  	   		  	  			  		 			     			  	  			  		 			     			  	 
     :param orders_file: Path of the order file or the file object  		  	   		  	  			  		 			     			  	 
     :type orders_file: str or file object  		  	   		  	  			  		 			     			  	 
     :param start_val: The starting value of the portfolio  		  	   		  	  			  		 			     			  	 
@@ -27,11 +24,7 @@ def compute_portvals(
     :type impact: float  		  	   		  	  			  		 			     			  	 
     :return: the result (portvals) as a single-column dataframe, containing the value of the portfolio for each trading day in the first column from start_date to end_date, inclusive.  		  	   		  	  			  		 			     			  	 
     :rtype: pandas.DataFrame  		  	   		  	  			  		 			     			  	 
-    """
-    # this is the function the autograder will call to test your code  		  	   		  	  			  		 			     			  	 
-    # NOTE: orders_file may be a string, or it may be a file object. Your  		  	   		  	  			  		 			     			  	 
-    # code should work correctly with either input  		  	   		  	  			  		 			     			  	 
-    # TODO: Your code here  		  	   		  	  			  		 			     			  	 
+    """	  	   		  	  			  		 			     			  	 
     orders = pd.read_csv(orders_file,parse_dates=True,index_col='Date',na_values=['nan'])
     orders=orders.sort_index()
     start_date = orders.index[0]
