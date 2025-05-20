@@ -8,7 +8,7 @@ from util import get_data, plot_data
 import numpy as np
 
 def author():
-    return 'dhematillake3'
+    return 'dh'
 def run_exp2():
     sl = StrategyLearner()
     sl.add_evidence(symbol="JPM",
