@@ -6,7 +6,7 @@ import pandas as pd
 from util import get_data, plot_data  		  	   		  	  			  		 			     			  	 
   		  	   		  	  			  		 			     			  	 
 def author():
-    return 'dhematillake3'
+    return 'dh'
 def compute_portvals(  		  	   		  	  			  		 			     			  	 
     orders_file="./orders/orders.csv",  		  	   		  	  			  		 			     			  	 
     start_val=1000000,  		  	   		  	  			  		 			     			  	 
