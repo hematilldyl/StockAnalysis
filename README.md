@@ -1,5 +1,10 @@
-# StockAnalysis
+# Copyright 2020, Georgia Tech Research Corporation    
+# Atlanta, Georgia 30332-0415     
+# All Rights Reserved  
 
-An exploration into Monte Carlo simulation used to conduct a what if on an index portfolio as well as any stock desired. Also contains
-an LSTM model that will fit to the stock trend and predict the trend as it goes as a behaviour model, used mostly to practise using
-an LSTM for time-series predictions.
+# ML4T_2020 Summer 
+Course website: http://lucylabs.gatech.edu/ml4t/
+
+Information on using the autograder on buffet0x servers: http://lucylabs.gatech.edu/ml4t/ml4t-software-setup/
+
+
