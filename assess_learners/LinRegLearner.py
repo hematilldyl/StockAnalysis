@@ -3,10 +3,10 @@ import numpy as np
 class LinRegLearner(object):  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
   		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
     def __init__(self, verbose = False):  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-        pass # move along, these aren't the drones you're looking for  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
+        pass 		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
   		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
     def author(self):  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-        return 'dhematillake3' # replace tb34 with your Georgia Tech username
+        return 'dh'
   		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
     def addEvidence(self,dataX,dataY):  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
         """  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
