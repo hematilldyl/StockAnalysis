@@ -3,7 +3,7 @@ import numpy as np
 from util import get_data, plot_data
 
 def author():
-    return 'dhematillake3'
+    return 'dh'
 def crosses(prices):
     SMA25 = prices.rolling(window=25).mean()
     SMA100 = prices.rolling(window=100).mean()
