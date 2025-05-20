@@ -9,7 +9,7 @@ from experiment1 import run_exp1
 from experiment2 import run_exp2
 
 def author():
-    return 'dhematillake3'
+    return 'dh'
 if __name__ == "__main__":
     run_exp1()
     run_exp2()
