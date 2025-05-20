@@ -12,8 +12,7 @@ from grading.grading import GradeResult, IncorrectOutput, grader, time_limit
 from util import get_data  		  	   		  	  			  		 			     			  	 
   		  	   		  	  			  		 			     			  	 
 # from portfolio.analysis import get_portfolio_value, get_portfolio_stats  		  	   		  	  			  		 			     			  	 
-  		  	   		  	  			  		 			     			  	 
-# Student code  		  	   		  	  			  		 			     			  	 
+		  	   		  	  			  		 			     			  	 
 # main_code = "portfolio.optimization"  # module name to import  		  	   		  	  			  		 			     			  	 
 main_code = "optimization"  		  	   		  	  			  		 			     			  	 
   		  	   		  	  			  		 			     			  	 
@@ -116,7 +115,7 @@ html_pre_block = (
     True  # surround comments with HTML <pre> tag (for T-Square comments field)  		  	   		  	  			  		 			     			  	 
 )  		  	   		  	  			  		 			     			  	 
   		  	   		  	  			  		 			     			  	 
-# Test functon(s)  		  	   		  	  			  		 			     			  	 
+# Test function(s)  		  	   		  	  			  		 			     			  	 
 @pytest.mark.parametrize("inputs,outputs,description", optimization_test_cases)  		  	   		  	  			  		 			     			  	 
 def test_optimization(inputs, outputs, description, grader):  		  	   		  	  			  		 			     			  	 
     """Test find_optimal_allocations() returns correct allocations.  		  	   		  	  			  		 			     			  	 
@@ -146,8 +145,7 @@ def test_optimization(inputs, outputs, description, grader):
         # dates = pd.date_range(start_date, end_date)  		  	   		  	  			  		 			     			  	 
         # prices_all = get_data(symbols, dates)  # automatically adds SPY  		  	   		  	  			  		 			     			  	 
         # prices = prices_all[symbols]  # only portfolio symbols  		  	   		  	  			  		 			     			  	 
-  		  	   		  	  			  		 			     			  	 
-        # Run student code with time limit (in seconds, per test case)  		  	   		  	  			  		 			     			  	 
+  		  	   		  	  			  		 			     			  	  		  	   		  	  			  		 			     			  	 
         port_stats = {}  		  	   		  	  			  		 			     			  	 
         with time_limit(seconds_per_test_case):  		  	   		  	  			  		 			     			  	 
             # * Find optimal allocations  		  	   		  	  			  		 			     			  	 
