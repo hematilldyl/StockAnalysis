@@ -1,11 +1,3 @@
-"""MC1-P2: Optimize a portfolio - grading script.  		  	   		  	  			  		 			     			  	 
-  		  	   		  	  			  		 			     			  	 
-Usage:  		  	   		  	  			  		 			     			  	 
-- Switch to a student feedback directory first (will write "points.txt" and "comments.txt" in pwd).  		  	   		  	  			  		 			     			  	 
-- Run this script with both ml4t/ and student solution in PYTHONPATH, e.g.:  		  	   		  	  			  		 			     			  	 
-    PYTHONPATH=ml4t:MC1-P2/jdoe7 python ml4t/mc1_p2_grading/grade_optimization.py  		  	   		  	  			  		 			     			  	 
-"""  		  	   		  	  			  		 			     			  	 
-  		  	   		  	  			  		 			     			  	 
 import datetime  		  	   		  	  			  		 			     			  	 
 import os  		  	   		  	  			  		 			     			  	 
 import sys  		  	   		  	  			  		 			     			  	 
