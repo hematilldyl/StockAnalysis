@@ -1,15 +1,3 @@
-"""MC1-P1: Analyze a portfolio - grading script.  		  	   		  	  			  		 			     			  	 
-  		  	   		  	  			  		 			     			  	 
-Usage:  		  	   		  	  			  		 			     			  	 
-- Switch to a student feedback directory first (will write "points.txt" and "comments.txt" in pwd).  		  	   		  	  			  		 			     			  	 
-- Run this script with both ml4t/ and student solution in PYTHONPATH, e.g.:  		  	   		  	  			  		 			     			  	 
-    PYTHONPATH=ml4t:MC1-P1/jdoe7 python ml4t/mc1_p1_grading/grade_analysis.py  		  	   		  	  			  		 			     			  	 
-  		  	   		  	  			  		 			     			  	 
-Copyright 2017, Georgia Tech Research Corporation  		  	   		  	  			  		 			     			  	 
-Atlanta, Georgia 30332-0415  		  	   		  	  			  		 			     			  	 
-All Rights Reserved  		  	   		  	  			  		 			     			  	 
-"""  		  	   		  	  			  		 			     			  	 
-  		  	   		  	  			  		 			     			  	 
 import datetime  		  	   		  	  			  		 			     			  	 
 import os  		  	   		  	  			  		 			     			  	 
 import sys  		  	   		  	  			  		 			     			  	 
