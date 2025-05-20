@@ -14,7 +14,7 @@ class BagLearner(object):
         self.kwargs =kwargs
   		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
     def author(self):  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-        return 'dhematillake3' # replace tb34 with your Georgia Tech username
+        return 'dh'
 
     def add_evidence(self,dataX,dataY):
         """  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
