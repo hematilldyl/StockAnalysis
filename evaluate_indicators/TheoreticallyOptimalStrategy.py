@@ -4,7 +4,7 @@ from util import get_data, plot_data
 import datetime as dt
 
 def author():
-    return 'dhematillake3'
+    return 'dh'
 
 def testPolicy(symbol='JPM',sd=dt.datetime(2008,1,1),ed=dt.datetime(2009,12,31),sv=100000):
     data = get_data([symbol], pd.date_range(sd,ed))
