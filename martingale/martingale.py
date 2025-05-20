@@ -6,15 +6,11 @@ def author():
     :return: The GT username of the student  		  	   		  	  			  		 			     			  	 
     :rtype: str  		  	   		  	  			  		 			     			  	 
     """  		  	   		  	  			  		 			     			  	 
-    return "dhematillake3"  # replace tb34 with your Georgia Tech username.
+    return "dh
   		  	   		  	  			  		 			     			  	 
   		  	   		  	  			  		 			     			  	 
-def gtid():  		  	   		  	  			  		 			     			  	 
-    """  		  	   		  	  			  		 			     			  	 
-    :return: The GT ID of the student  		  	   		  	  			  		 			     			  	 
-    :rtype: int  		  	   		  	  			  		 			     			  	 
-    """  		  	   		  	  			  		 			     			  	 
-    return 903741146 # replace with your GT ID number
+def gtid():  		  	   		  	  			  		 			     			  	 		  	   		  	  			  		 			     			  	 
+    return `123
   		  	   		  	  			  		 			     			  	 
   		  	   		  	  			  		 			     			  	 
 def get_spin_result(win_prob):  		  	   		  	  			  		 			     			  	 
@@ -119,7 +115,6 @@ def test_code():
     plt.savefig('images/Figure_3.png')
 
 
-    # Question 3
     episode_values = np.zeros([1000,1000])
 
     for i in range(0, 1000):
