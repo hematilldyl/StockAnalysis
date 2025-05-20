@@ -1,31 +1,3 @@
-"""MC3-P1: Assess learners - grading script.  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-Usage:  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-- Switch to a student feedback directory first (will write "points.txt" and "comments.txt" in pwd).  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-- Run this script with both ml4t/ and student solution in PYTHONPATH, e.g.:  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-    PYTHONPATH=ml4t:MC3-P1/jdoe7 python ml4t/mc3_p1_grading/grade_learners.py  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-Copyright 2018, Georgia Institute of Technology (Georgia Tech)  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-Atlanta, Georgia 30332  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-All Rights Reserved  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-Template code for CS 4646/7646  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-Georgia Tech asserts copyright ownership of this template and all derivative  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-works, including solutions to the projects assigned in this course. Students  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-and other users of this template code are advised not to share it with others  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-or to make it available on publicly viewable websites including repositories  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-such as github and gitlab.  This copyright statement should not be removed  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-or edited.  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-We do grant permission to share solutions privately with non-students such  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-as potential employers. However, sharing with other current or future  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-students of CS 7646 is prohibited and subject to being investigated as a  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-GT honor code violation.  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
------do not edit anything above this line---  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-"""  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
 import pytest  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
 from grading.grading import grader, GradeResult, time_limit, run_with_timeout, IncorrectOutput  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
 import util  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
@@ -44,15 +16,9 @@ import string
   		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
 import time  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
   		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-import random  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
+import random  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
   		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-# Grading parameters  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-# rmse_margins = dict(KNNLearner=1.10, BagLearner=1.10)  # 1.XX = +XX% margin of RMS error  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-# points_per_test_case = dict(KNNLearner=3.0, BagLearner=2.0)  # points per test case for each group  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-# seconds_per_test_case = 10  # execution time limit  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-# seconds_per_test_case = 6  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
-# More grading parameters (picked up by module-level grading fixtures)  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
+	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
 max_points = 50.0  # 3.0*5 + 3.0*5 + 2.0*10 = 50  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
 html_pre_block = True  # surround comments with HTML <pre> tag (for T-Square comments field)  		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
   		  	   		     			  		 			 	 	 		 		 	 		 		 	 		  	 	 			  	 
