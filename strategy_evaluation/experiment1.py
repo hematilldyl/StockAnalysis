@@ -7,8 +7,6 @@ from marketsimcode import compute_portvals
 from util import get_data, plot_data
 import numpy as np
 
-def author():
-    return 'dhematillake3'
 def run_exp1():
     np.random.seed(903741146)
     sd=dt.datetime(2008, 1, 1)
