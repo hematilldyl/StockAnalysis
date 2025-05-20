@@ -14,12 +14,9 @@ from grading.grading import (
 )  		  	   		  	  			  		 			     			  	 
 from util import get_data  		  	   		  	  			  		 			     			  	 
   		  	   		  	  			  		 			     			  	 
-# Student code  		  	   		  	  			  		 			     			  	 
-# Spring '16 renamed package to just "analysis" (BPH)  		  	   		  	  			  		 			     			  	 
+	  	   		  	  			  		 			     			  	 
 main_code = "analysis"  # module name to import  		  	   		  	  			  		 			     			  	 
-  		  	   		  	  			  		 			     			  	 
-# Test cases  		  	   		  	  			  		 			     			  	 
-# Spring '16 test cases only check sharp ratio, avg daily ret, and cum_ret (BPH)  		  	   		  	  			  		 			     			  	 
+  		  	   		  	  			  		 			     			  	 	  	   		  	  			  		 			     			  	 
 PortfolioTestCase = namedtuple(  		  	   		  	  			  		 			     			  	 
     "PortfolioTestCase", ["inputs", "outputs", "description"]  		  	   		  	  			  		 			     			  	 
 )  		  	   		  	  			  		 			     			  	 
