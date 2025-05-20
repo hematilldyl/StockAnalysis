@@ -6,9 +6,7 @@ import pandas as pd
 from scipy.optimize import minimize
 from util import get_data, plot_data  		  	   		  	  			  		 			     			  	 
   		  	   		  	  			  		 			     			  	 
-  		  	   		  	  			  		 			     			  	 
-# This is the function that will be tested by the autograder  		  	   		  	  			  		 			     			  	 
-# The student must update this code to properly implement the functionality  		  	   		  	  			  		 			     			  	 
+  		  	   		  	  			  		 			     			  	 	  	   		  	  			  		 			     			  	 
 def assess_portfolio(
         sd=dt.datetime(2008, 6, 1),
         ed=dt.datetime(2009, 6, 1),
