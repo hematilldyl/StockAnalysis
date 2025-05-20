@@ -20,7 +20,7 @@ class ManualStrategy(object):
     :type commission: float
     """
     def author(self):
-        return 'dhematillake3'
+        return 'dh'
     # constructor
     def __init__(self, verbose=False, impact=0.0, commission=0.0):
         """
